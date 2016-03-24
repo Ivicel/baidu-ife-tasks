@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compotible" content="IE=edge, chrome=1">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="keywords" content="task 004">
+	<meta name="description" content="">
+	<meta name="robots" content="index, follow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>baidu ife task 004</title>
+	<style type="text/css">
+		.wrapper {
+			width: 400px;
+			height: 200px;
+			background: #ccc;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-top: -100px;
+			margin-left: -200px;
+			overflow: hidden;
+		}
+		.wrapper:before, .wrapper:after {
+			content: "";
+			background: #fc0;
+			border: 50px solid #fc0;
+			border-radius: 50% 50%;
+			position: absolute;
+			margin-left: -50px;
+			margin-top: -50px;
+		}
+		.wrapper:after {
+			bottom: 0;
+			right: 0;
+			margin-right: -50px;
+			margin-bottom: -50px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="wrapper"></div>
+</body>
+</html>

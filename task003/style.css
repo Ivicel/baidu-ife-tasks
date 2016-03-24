@@ -1,0 +1,57 @@
+html, body {
+	background: #eee;
+	height: 100%;
+}
+
+.wrapper {
+	margin: 0 auto;
+	padding: 40px;
+}
+
+.team {
+	width: 200px;
+	border: 1px solid #999;
+	float: left;
+	height: 100%;
+	background: #009688;
+	position: relative;
+}
+
+.team:after {
+	content: "这是一个名字";
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+
+.team-logo img {
+	width: 200px;
+}
+
+.person {
+	width: 120px;
+	float: right;
+	height: 100%;
+	border: 1px solid #999;
+	padding: 10px 0; 
+}
+
+.personal-image {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+}
+
+.personal-image:last-child {
+	margin-bottom: -20px;
+}
+
+.personal-image img {
+	width: 100%;
+}
+
+.main {
+	border: 1px solid #999;
+	margin-left: 210px;
+	margin-right: 130px;
+}
