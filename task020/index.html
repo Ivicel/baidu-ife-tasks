@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compotible" content="IE=edge, chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task 020</title>
+    <style type="text/css">
+    .warn {
+        color: red;
+        font-size: 15px;
+    }
+    
+    .highlight {
+        background: #FFDA22;
+        color: #009688;
+        padding: 5px;
+    }
+    
+    #queue .digit {
+        background: #D4385C;
+        display: inline-block;
+        margin: 1px;
+        cursor: pointer;
+        padding: 15px 20px;
+        color: #fff;
+        font-size: 16px;
+    }
+    
+    .input-text,
+    #query {
+        display: block;
+        margin: 10px 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="inputs">
+        <!-- <input type="text" class="input-text" minlength=10 maxlength=100> -->
+        <textarea name="input" class="input-text" cols="30" rows="10"></textarea>
+        <input type="button" value="左侧入" name="left-in">
+        <input type="button" value="右侧入" name="right-in">
+        <input type="button" value="左侧出" name="left-out">
+        <input type="button" value="右侧出" name="right-out">
+        <input type="button" value="动态演示冒泡排序" name="bubble">
+        <span class="warn"></span>
+    </div>
+    <div id="query">
+        <input type="text" placeholder="请输入查询的词">
+        <input type="button" value="查询" name="search">
+    </div>
+    <div id="queue"></div>
+    <script type="text/javascript" src="task.js"></script>
+</body>
+
+</html>

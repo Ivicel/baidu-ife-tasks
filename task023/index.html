@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compotible" content="IE=edge, chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task 024</title>
+    <script type="text/javascript" src="task.js"></script>
+    <style type="text/css">
+    .node {
+        border: 3px solid #009888;
+        display: inline-block;
+        margin: 15px;
+        text-align: center;
+        background: #fff;
+        cursor: pointer;
+    }
+
+    .search {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .search input:first-child,
+    .add-remove input:first-child {
+        padding: 10px 15px;
+        font-size: 18px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="binary-tree">
+    </div>
+    <div class="doIt">
+        <input type="button" value="前序遍历算法" name="dlr">
+        <input type="button" value="中序遍历算法" name="ldr">
+        <input type="button" value="后序遍历算法" name="lrd">
+    </div>
+    <div class="search">
+        <input type="text" placeholder="Please enter word">
+        <input type="button" value="前序遍历查找" name="dlr">
+        <input type="button" value="中序遍历查找" name="ldr">
+        <input type="button" value="后序遍历查找" name="lrd">
+    </div>
+    <div class="add-remove">
+        <input type="text" placeholder="Please enter word">
+        <input type="button" value="添加" name="add">
+        <input type="button" value="删除" name="remove">
+    </div>
+</body>
+
+</html>

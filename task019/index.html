@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compotible" content="IE=edge, chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task 019</title>
+    <style type="text/css">
+    .warn {
+        color: red;
+        font-size: 15px;
+    }
+    
+    #queue .digit {
+        background: red;
+        display: inline-block;
+        margin: 1px;
+        cursor: pointer;
+        width: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="inputs">
+        <input type="text" class="input-text" minlength=10 maxlength=100>
+        <input type="button" value="左侧入" name="left-in">
+        <input type="button" value="右侧入" name="right-in">
+        <input type="button" value="左侧出" name="left-out">
+        <input type="button" value="右侧出" name="right-out">
+        <input type="button" value="动态演示冒泡排序" name="bubble">
+        <span class="warn"></span>
+    </div>
+    <div id="queue"></div>
+    <script type="text/javascript" src="task.js"></script>
+</body>
+
+</html>

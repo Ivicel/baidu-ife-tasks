@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compotible" content="IE=edge, chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task 020</title>
+    <style type="text/css">
+    textarea, input[name="insteret"], #insterets, #tags-list {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .tag, .interest {
+        background: #009688;
+        color: #fff;
+        font-size: 18px;
+        padding: 5px;
+        margin: 10px 5px;
+        cursor: pointer;
+        display: inline-block;
+    }
+    .tag-hover {
+        display: none;
+    }
+    #tags-list label, #interests-list label {
+        display: block;
+        margin: 15px 0;
+    }
+    .tag:hover > .tag-hover {
+        display: inline-block;
+        color: red;
+        font-weight: 600;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="inputs">
+        <label for="tags">Tag:</label>
+        <input type="text" class="tag-input" name="tag">
+        <textarea name="input" class="input-text" cols="30" rows="10"></textarea>
+        <input type="button" value="确认兴趣爱好" name="submit" id="submit">
+    </div>
+    <div id="tags-list"><label for="tags">Tags:</label></div>
+    <div id="interests-list"><label for="insterests">兴趣爱好:</label></div>
+    <script type="text/javascript" src="task.js"></script>
+</body>
+
+</html>
