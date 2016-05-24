@@ -236,33 +236,56 @@ function addEvent(element, type, listener) {
 function createTree(number) {
     var count = 0,
         queue = new Queue(),
-        level = 1,
         binaryTree = document.querySelector(".binary-tree"),
-        parentElement = setElement(binaryTree, "div", "0", "node"),
+        parentElement = setElement(binaryTree, "ul", "", "node tree-container-ul"),
         newNode,
+        link,
         newElement,
-        newChildNode;
+        newChildNode,
+        isLeaf,
+        treeIcon,
+        treeWholerow;
 
+    // 建立树形结构
     var tree = new BinaryTree(parentElement),
-        currentNode = tree.getRoot(),
-        ran = Math.ceil(Math.random() * 5);
-
+        currentNode = tree.getRoot();
     for (var i = 0; i < number - 1; i++) {
-        newElement = setElement(parentElement, "div", i + 1, "node");
-        newNode = tree.addNode(newElement, currentNode, tree.traverseBF);
-        queue.enqueue(newNode);
-        count++;
         ran = Math.ceil(Math.random() * 5);
-        if (i % ran === 0) {
+        // 是否是叶子结点
+        isLeaf = ran % 2 === 0 ? " tree-leaf" : "";
+        treeIcon = "tree-icon-leaf";
+        // 新的子结点，添加到树中
+        newElement = setElement(parentElement, "li", "", "node" + isLeaf);
+        newNode = tree.addNode(newElement, currentNode, tree.traverseBF);
+        // hover层
+        treeWholerow = setElement(newElement, "div", "", "tree-wholerow");
+        setElement(treeWholerow, "input", null, "select-check");
+        if (!isLeaf) {
+            setElement(newElement, "i", "", "tree-anchor");
+            // 目录结点将其添加到队列中
+            queue.enqueue(newNode);
+            treeIcon = "tree-icon-dir";
+        }
+        link = setElement(newElement, "a", i + 1, "tree-link");
+        setElement(link, "i", "", treeIcon);
+
+        // 换到新的父结点
+        if (i % ran !== 0) {
+            // 队列中没有剩余结点时不切换
+            if (!queue.getSize()) {
+                continue;
+            }
             currentNode = queue.dequeue();
-            parentElement = currentNode.data;
+            newElement = setElement(currentNode.data, "ul", null, "tree-ul");
+            newElement.style.display = "none";
+            parentElement = newElement;
         }
     }
     return tree;
 }
 
 addEvent(document, "DOMContentLoaded", function(e) {
-    var tree = createTree(21),
+    var tree = createTree(41),
         button = document.querySelector(".doIt"),
         search = document.querySelector(".search"),
         binaryTree = document.querySelector(".binary-tree"),
@@ -290,7 +313,7 @@ addEvent(document, "DOMContentLoaded", function(e) {
             return;
         }
         clearInterval(timer);
-        var e = document.querySelectorAll(".node"),
+        var e = document.querySelectorAll(".tree-wholerow"),
             node;
         for (var i = 0; i < e.length; i++) {
             e[i].style.backgroundColor = "#fff";
@@ -298,104 +321,90 @@ addEvent(document, "DOMContentLoaded", function(e) {
         timer = setInterval(function(queue) {
             if (!queue.getSize()) {
                 clearInterval(timer);
-                last.data.style.backgroundColor = "#fff";
+                last.style.backgroundColor = "#fff";
             } else {
-                var node = queue.dequeue();
-                node.data.style.backgroundColor = "#AD1457";
+                var node = queue.dequeue().data.querySelector(".tree-wholerow") || node.data;
+                node.style.backgroundColor = "#AD1457";
                 if (last) {
-                    last.data.style.backgroundColor = "#fff";
+                    last.style.backgroundColor = "#fff";
                 }
                 last = node;
             }
-        }, 300, queue);
+        }, 400, queue);
     });
 
     // 查询某个特定值
     addEvent(search, "click", function(event) {
         var queue = new Queue(),
-            last = null,
-            something = false,
+            isFound = false,
             node,
-            queryFunction,
-            inputText = this.querySelector("input").value;
-        if (!inputText && event.target !== this && event.target.type !== "text") {
+            input = this.querySelector("input");
+        if (event.target === input || event.target === this) {
+            return;
+        }
+        switch (event.target.name) {
+            case "dlr":
+                BinaryTree.prototype.queryFunction = BinaryTree.prototype.traverseDLR;
+                break;
+            case "ldr":
+                BinaryTree.prototype.queryFunction = BinaryTree.prototype.traverseLDR;
+                break;
+            case "lrd":
+                BinaryTree.prototype.queryFunction = BinaryTree.prototype.traverseLRD;
+                break;
+        }
+        if (!input.value && event.target.type !== "text") {
             alert("请输入在查找的字符");
             return;
         }
-        clearInterval(timer);
-        switch (event.target.name) {
-            case "dlr":
-                queryFunction = tree.traverseDLR;
-                break;
-            case "ldr":
-                queryFunction = tree.traverseLDR;
-                break;
-            case "lrd":
-                queryFunction = tree.traverseLRD;
-                break;
-        }
-        if (event.target.name === "dlr") {
-            tree.traverseDLR(function(node) {
-                queue.enqueue(node);
-            });
-        } else if (event.target.name === "ldr") {
-            tree.traverseLDR(function(node) {
-                queue.enqueue(node);
-            });
-        } else if (event.target.name === "lrd") {
-            tree.traverseLRD(function(node) {
-                queue.enqueue(node);
-            });
-        } else {
-            return;
-        }
-        
-        var e = document.querySelectorAll(".node");
-        for (var i = 0; i < e.length; i++) {
-            e[i].style.backgroundColor = "#fff";
+        tree.queryFunction(function(node) {
+            var nodeValue = node !== tree.getRoot() &&
+                node.data.querySelector("a").firstChild.nodeValue;
+            node.data.className = node.data.className.replace("search-item", "").trim();
+            if (nodeValue === input.value) {
+                isFound = true;
+                node.data.className += " search-item";
+                (function setParent(node) {
+                    node.data.parentElement.style.display = "block";
+                    if (node.getParent() !== tree.getRoot()) {
+                        setParent(node.getParent());
+                    }
+                })(node);
+            }
+        });
+        if (!isFound) {
+            alert("Can not find what you want!!!!");
         }
     });
 
-    // 选定某个元素
-   /* addEvent(binaryTree, "click", function(event) {
-        var target = event.target,
-            isSelected = target.getAttribute("data-selected");
-        if (target.className.indexOf("node") === -1) {
-            return;
-        }
-        if (isSelected && isSelected === "yes") {
-            target.style.backgroundColor = "#fff";
-            target.setAttribute("data-selected", "no");
-        } else {
-            target.style.backgroundColor = "#ffaa22";
-            target.setAttribute("data-selected", "yes");
-        }
-    });*/
+    // 下拉
     addEvent(binaryTree, "click", function(event) {
         var target = event.target,
-            children = target.children,
+            children = target.parentElement.querySelector("ul"),
             className,
             i;
-        if (target.className.indexOf("node") === -1) {
+        if (target.className.indexOf("tree-wholerow") === -1 ||
+            target.parentElement.className.indexOf("tree-leaf") !== -1 || !children) {
             return;
         }
-        console.log(children.length);
-        if (children.length && children[0].className.indexOf("hide") !== -1) {
-            for (i = 0; i < children.length; i++) {
-                children[i].className = children[i].className.replace("hide", "").trim();
-            }
+        // 点击隐藏
+        if (children.style.display === "none") {
+            children.style.display = "block";
+            target.nextElementSibling.style.backgroundPosition = "-40px -6px";
         } else {
-            for (i = 0; i < children.length; i++) {
-                children[i].className += " hide";
-            }
+            // 点击显示
+            children.style.display = "none";
+            target.nextElementSibling.style.backgroundPosition = "-5px -6px";
         }
     });
 
+    // 添加删除节点元素
     addEvent(addRemove, "click", function(event) {
         var target = event.target,
-            allSelected = binaryTree.querySelectorAll("[data-selected=yes]"),
+            allSelected = binaryTree.querySelectorAll(":checked"),
             i,
-            j;
+            j,
+            listElement;
 
         if (target.name === "remove") {
             if (!allSelected.length) {
@@ -403,35 +412,65 @@ addEvent(document, "DOMContentLoaded", function(e) {
                 return;
             }
             var newChild = [],
-                parentNode;
+                parentNode,
+                node;
             for (i = 0, length = allSelected.length; i < length; i++) {
-                var node = tree.contains(allSelected[i], tree.traverseDLR);
+                listElement = allSelected[i].parentElement.parentElement;
+                // 在树中查找是否有选中的节点
+                node = tree.contains(listElement, tree.traverseDLR);
+
                 if (node) {
                     parentNode = node.getParent();
+                    // 删除树节点和节点下的子结点
                     for (j = 0, len = parentNode._children.length; j < len; j++) {
                         if (parentNode._children[j] !== node) {
                             newChild.push(parentNode._children[j]);
                         }
                     }
                     parentNode._children = newChild;
-                    allSelected[i].remove();
+                    allSelected[i].parentElement.parentElement.remove();
                 }
             }
         } else if (target.name === "add") {
             var text = this.querySelector("input").value,
                 newElement,
-                newNode;
+                newNode,
+                ranNum,
+                link,
+                treeIcon = "tree-icon-leaf";
             if (!allSelected.length) {
                 alert("未选中任何结点");
                 return;
             }
             if (!text) {
+                alert("输入不能为空");
                 return;
             }
             for (i = 0; i < allSelected.length; i++) {
-                newElement = setElement(allSelected[i], "div", text, "node");
-                newNode = tree.addNode(newElement, tree.contains(allSelected[i],
-                    tree.traverseLDR), tree.traverseLDR);
+                listElement = allSelected[i].parentElement.parentElement;
+                // 跳过叶子结点
+                if (listElement.className.indexOf("tree-leaf") === -1) {
+                    // 查找ul，不存在时创建新的ul元素
+                    newElement = listElement.querySelector("ul") || 
+                        setElement(listElement, "ul", null, "tree-ul");
+                    // 新的结点元素
+                    newElement = setElement(newElement, "li", null, "node");
+                    // hover层
+                    treeWholerow = setElement(newElement, "div", null, "tree-wholerow");
+                    // 点选标签
+                    setElement(treeWholerow, "input", null, "select-check");
+                    ranNum = Math.ceil(Math.random() * 10) % 2;
+                    if (ranNum % 2) {
+                        // 为目录时，添加三角形
+                        setElement(newElement, "i", "", "tree-anchor");
+                        treeIcon = "tree-icon-dir";
+                    }
+                    console.log(ranNum);
+                    link = setElement(newElement, "a", text, "tree-link");
+                    setElement(link, "i", null, treeIcon);
+                    newNode = tree.addNode(newElement, tree.contains(listElement,
+                        tree.traverseLDR), tree.traverseLDR);
+                }
             }
         }
     });
@@ -439,9 +478,16 @@ addEvent(document, "DOMContentLoaded", function(e) {
 
 function setElement(parentNode, element, msg, elementClass) {
     var el = document.createElement(element);
-    var text = document.createTextNode(msg);
-    el.appendChild(text);
-    el.className = elementClass;
+    if (msg) {
+        var text = document.createTextNode(msg);
+        el.appendChild(text);
+    }
+    if (elementClass) {
+        el.className = elementClass;
+    }
+    if (element === "input") {
+        el.setAttribute("type", "checkbox");
+    }
     parentNode.appendChild(el);
     return el;
 }

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compotible" content="IE=edge, chrome=1">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="robots" content="index, follow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>task 26</title>
+	<script type="text/javascript" src="jquery-1.12.3.js"></script>
+	<script type="text/javascript" src="task.js"></script>
+	<style type="text/css">
+		.space-land, .command {
+			margin-top: 400px;
+			border: 1px solid;
+			position: relative;
+		}
+
+		.planet {
+			background: #99228f;
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			margin: 0 auto;
+		}
+
+		.track {
+			width: 80px;
+			height: 30px;
+			border-radius: 30%;
+			background: #009688;
+			top: 50%;
+		    margin-top: -25px;
+			position: absolute;
+			left: 50%;
+			margin-left: -25px;
+		}
+
+		.line-one {
+			animation: lineone 6s linear infinite;
+		}
+		@keyframes lineone {
+			from {
+				transform: rotate(0) translate(-150px) rotate(90deg);
+			}
+			to {
+				transform: rotate(360deg) translate(-150px) rotate(90deg);
+			}
+		}
+		
+		.line-two {
+			animation: linetwo 8s linear infinite;
+		}
+
+		@keyframes linetwo {
+			from {
+				transform: rotate(0) translate(-250px) rotate(90deg);
+			}
+			to {
+				transform: rotate(360deg) translate(-250px) rotate(90deg);
+			}
+		}
+
+		.line-three {
+			animation: linethree 13s linear infinite;
+		}
+
+		@keyframes linethree {
+			from {
+				transform: rotate(0) translate(-350px) rotate(90deg);
+			}
+			to {
+				transform: rotate(360deg) translate(-350px) rotate(90deg);
+			}
+		}
+
+		.line-four {
+			animation: linefour 16s linear infinite;
+		}
+
+		@keyframes linefour {
+			from {
+				transform: rotate(0) translate(-450px) rotate(90deg);
+			}
+			to {
+				transform: rotate(360deg) translate(-450px) rotate(90deg);
+			}
+		}
+
+		.command {
+			width: 800px;
+			height: 800px;
+			margin: 20px auto;
+			border: 1px solid #221133;
+			position: relative;
+		}
+
+		.command div {
+			width: 25px;
+			height: 25px;
+			background: #009288;
+			position: absolute;
+			border-radius: 50%;
+			left: 50%;
+			top: 50%;
+		}
+	</style>
+</head>
+<body>
+	<div class="space-land">
+		<div class="planet"></div>
+		<div class="track line-one">AAAAAA</div>
+		<div class="track line-two">AAAAAA</div>
+		<div class="track line-three">AAAAAA</div>
+		<div class="track line-four">AAAAAA</div>
+	</div>
+	<div class="command">
+		<div></div>
+	</div>
+</body>
+</html>

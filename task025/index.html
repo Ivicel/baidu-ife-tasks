@@ -12,42 +12,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>task 025</title>
     <script type="text/javascript" src="task.js"></script>
+    <link rel="stylesheet" type="text/css" href="../task001/normalize.css"></link>
     <style type="text/css">
-    /*.node {
-        border: 3px solid #009888;
-        display: inline-block;
-        margin: 15px;
-        text-align: center;
-        background: #fff;
-        cursor: pointer;
-    }*/
-    
-    .node {
-        border-top: 1px solid #009688;
-        position: relative;
-        left: 30px;
-    }
-
-    .node:before {
-        content: attr(data-icon);
-    }
-    .search {
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-    
-    .search input:first-child,
-    .add-remove input:first-child {
-        padding: 10px 15px;
-        font-size: 18px;
-    }
-
     .hide {
         display: none;
     }
+    
+    .binary-tree {
+        position: relative;
+        width: 300px;
+        overflow: scroll;
+        border: 3px solid #009688;
+        margin: 0 auto;
+    }
+    
+    li.node {
+        list-style: none;
+        margin-left: -25px;
+        position: relative;
+    }
+    
+    .tree-wholerow {
+        position: absolute;
+        right: 0;
+        height: 21px;
+        width: 310px;
+        cursor: pointer;
+        z-index: 1;
+    }
+    
+    .tree-wholerow[data-selected="yes"] {
+        background: #ffaa22;
+        opacity: 0.5;
+    }
+    
+    .tree-wholerow:hover {
+        background: rgb(128, 172, 210);
+        background: rgba(128, 172, 210, 0.57);
+    }
+    
+    .tree-link {
+        text-decoration: none;
+        line-height: 21px;
+        font-size: 16px;
+        position: relative;
+    }
+    
+    .tree-icon-dir:after {
+        content: url("../images/dir.svg");
+        position: absolute;
+        left: -20px;
+    }
+    
+    .tree-icon-leaf:after {
+        content: url("../images/file.svg");
+        position: absolute;
+        left: -20px;
+    }
+    
+    .binary-tree > ul > li.node {
+        margin-left: 13px;
+    }
+    
+    .tree-anchor {
+        background: url("../images/arrow.png") -5px -6px;
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        position: absolute;
+        left: -38px;
+        top: -2px;
+    }
+    
+    .select-check {
+        position: absolute;
+        right: 0;
+        width: 16px;
+        height: 16px;
+    }
+    
+    .search-item:after {
+        background: url("../images/arrow.png") -8px -69px;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        position: absolute;
+        left: 25px;
+        top: -2px;
+        content: "";
+    }
 
-    .node:hover {
-        /*background-color: rgb(0,0,0);*/
+    .doIt, .search, .add-remove {
+        margin: 10px;
     }
     </style>
 </head>
@@ -70,36 +126,6 @@
         <input type="text" placeholder="Please enter word">
         <input type="button" value="添加" name="add">
         <input type="button" value="删除" name="remove">
-    </div>
-    <div class="tree">
-        <div class="node">0
-            <div class="node">1
-                <div class="node">2
-                    <div class="node">6
-                        <div class="node">18</div>
-                        <div class="node">19</div>
-                        <div class="node">20</div>
-                    </div>
-                    <div class="node">7</div>
-                    <div class="node">8</div>
-                    <div class="node">9</div>
-                </div>
-                <div class="node">3
-                    <div class="node">10</div>
-                    <div class="node">11</div>
-                </div>
-                <div class="node">4
-                    <div class="node">12</div>
-                    <div class="node">13</div>
-                    <div class="node">14</div>
-                    <div class="node">15</div>
-                    <div class="node">16</div>
-                </div>
-                <div class="node">5
-                    <div class="node">17</div>
-                </div>
-            </div>
-        </div>
     </div>
 </body>
 
